@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="angular.min.js"></script>
+</head>
+<body>
+    <!-- khoi tao bien a=100 o vung root -->
+    <div ng-app="myapp" ng-init="a=100">
+        <h1>Root goi bien a: {{ a }}</h1>
+        <!-- khoi tao gia tri bien b=50 o vung cha -->
+        <ul ng-controller="parentCtrl" ng-init="b=50">
+            <li> Cha goi bien b: {{ b }}</li>
+            <li> Cha goi bien a: {{ a }}</li>
+            <!-- khoi tao gia tri c=8 o vung con -->
+            <ul ng-controller="conCtrl" ng-init="c=8">
+                <li>Con goi bien c: {{ c }}</li>
+                <li>Cha goi bien b: {{ b }}</li>
+                <li>Root goi bien a: {{ a }}</li>
+                <li>Con goi Root: {{ $parent.$parent.rootmsg }}</li>
+                <li>Con goi cha: {{ $parent.chamsg }}</li>
+            </ul>
+        </ul>
+    </div>
+    <script>
+        var app=angular.module("myapp",[]);
+        app.controller("parentCtrl",function($scope,$rootScope){
+            $rootScope.rootmsg = "Toi la root";
+            $scope.chamsg = "Toi la cha";
+        });
+        app.controller("conCtrl",function($scope){
+            $scope.conmsg = "Toi la con";
+        });
+    </script>
+</body>
+</html>
